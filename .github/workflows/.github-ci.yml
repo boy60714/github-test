@@ -37,7 +37,7 @@ jobs:
   allen-build:
     name: building image
     runs-on: ubuntu-latest
-    environment: test
+    environment: ${{ github.ref_name }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
