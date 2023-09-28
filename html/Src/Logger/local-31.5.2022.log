@@ -1,0 +1,3 @@
+2022-05-30 20:41:17 - Level: critical - Message: SQLSTATE[HY000]: General error: 1366 Incorrect string value: '\xE6\x92\xAD\xE6\x94\xBE...' for column 'message' at row 1 - Context: {"reportType":"video player","email":"bycheng.lai@gmail.com","message":"\u64ad\u653e\u5361\u5361\u7684","link":"https:\/\/www.udemy.com\/","add":"Add"}
+2022-05-30 20:41:55 - Level: info - Message: new bug report created - Context: {"id":1,"type":"video player"}
+2022-05-30 20:42:03 - Level: info - Message: bug report updated - Context: {"id":1,"type":"video player"}
