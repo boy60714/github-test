@@ -63,27 +63,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.ARTIFACT_REGISTRY }}:${{ github.sha }}
-      # - name: Configure kubectl
-        # uses: google-github-actions/get-gke-credentials@v1
-        # with:
-          # cluster_name: ${{ secrets.GCP_GKE_CLUSTER }}
-          # location: ${{ secrets.GCP_GKE_LOCATION }}
-      # - name: Install Kustomize
-        # run: |
-          # curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-      # - name: Deploy to test namespace
-        # shell: bash
-        # run: |
-          # export PATH="$PATH:$(pwd)"
-          # pushd deploy/overlay/test
-          # kustomize edit set namespace ${{ secrets.K8S_TEST_NS }}
-          # kustomize edit set image wildfly-image=${{ secrets.CONTAINER_REGISTRY_HOST }}/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_NAME }}/${{ secrets.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
-        # if:  ${{ inputs.print_tags }}    
-      # - name: Print the input tag to STDOUT
-      #   run: echo  The tags are ${{ inputs.tags }} 
-  # print-tag:
-    # runs-on: ubuntu-latest
-    # if:  ${{ inputs.print_tags }} 
-    # steps:
-      # - name: Print the input tag to STDOUT
-        # run: echo  The tags are ${{ inputs.tags }} 
