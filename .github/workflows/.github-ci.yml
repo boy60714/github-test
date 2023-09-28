@@ -5,16 +5,16 @@
 
 on:
   workflow_dispatch:
-    inputs:
-      # logLevel:
-      #   description: 'Log level'
-      #   required: true
-      #   default: 'warning'
-      #   type: choice
-      #   options:
-      #     - info
-      #     - warning
-      #     - debug
+    # inputs:
+    #   logLevel:
+    #     description: 'Log level'
+    #     required: true
+    #     default: 'warning'
+    #     type: choice
+    #     options:
+    #       - info
+    #       - warning
+    #       - debug
       # print_tags:
       #   description: 'True to print to STDOUT'
       #   required: true
@@ -37,7 +37,7 @@ jobs:
   allen-build:
     name: building image
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    environment: test
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -46,12 +46,12 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           token_format: access_token
-          workload_identity_provider: ${{ vars.ALLEN_PROVIDER }}
-          service_account: ${{ vars.ALLEN_SA }}
+          workload_identity_provider: ${{ secrets.ALLEN_PROVIDER }}
+          service_account: ${{ secrets.ALLEN_SA }}
       - name: Login to Google Cloud Aritfact Registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ vars.ALLEN_REGISTRY }}
+          registry: ${{ secrets.ALLEN_REGISTRY }}
           username: oauth2accesstoken
           password: ${{ steps.gcp_auth.outputs.access_token }}
       - name: Setup Docker Buildx (Buildkit)
@@ -62,12 +62,12 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ vars.ALLEN_REGISTRY }}/${{ vars.ALLEN_PROJECT_ID }}/${{ vars.ALLEN_REPO }}/${{ vars.ALLEN_IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ secrets.ARTIFACT_REGISTRY }}:${{ github.sha }}
       # - name: Configure kubectl
         # uses: google-github-actions/get-gke-credentials@v1
         # with:
-          # cluster_name: ${{ vars.GCP_GKE_CLUSTER }}
-          # location: ${{ vars.GCP_GKE_LOCATION }}
+          # cluster_name: ${{ secrets.GCP_GKE_CLUSTER }}
+          # location: ${{ secrets.GCP_GKE_LOCATION }}
       # - name: Install Kustomize
         # run: |
           # curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
@@ -76,11 +76,11 @@ jobs:
         # run: |
           # export PATH="$PATH:$(pwd)"
           # pushd deploy/overlay/test
-          # kustomize edit set namespace ${{ vars.K8S_TEST_NS }}
-          # kustomize edit set image wildfly-image=${{ vars.CONTAINER_REGISTRY_HOST }}/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_NAME }}/${{ vars.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
+          # kustomize edit set namespace ${{ secrets.K8S_TEST_NS }}
+          # kustomize edit set image wildfly-image=${{ secrets.CONTAINER_REGISTRY_HOST }}/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_ARTIFACT_REGISTRY_NAME }}/${{ secrets.CONTAINER_IMAGE_NAME }}:${{ github.sha }}
         # if:  ${{ inputs.print_tags }}    
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+      # - name: Print the input tag to STDOUT
+      #   run: echo  The tags are ${{ inputs.tags }} 
   # print-tag:
     # runs-on: ubuntu-latest
     # if:  ${{ inputs.print_tags }} 
