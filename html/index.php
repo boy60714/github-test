@@ -22,7 +22,7 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Manage <b>Bug Reports Builded in Github</b></h2>
+                    <h2>Manage <b>Bug Reports Builded in Github2</b></h2>
                 </div>
                 <div class="col-sm-6">
                     <a href="#addBugReportModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Report</span></a>
