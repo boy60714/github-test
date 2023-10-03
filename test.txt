@@ -1,2 +1,2 @@
 Test for switching branch
-cd 6
+cd 7
